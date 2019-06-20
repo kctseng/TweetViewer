@@ -1,6 +1,8 @@
 # TweetViewer
 
 > A simple website to query multiple Twitter Strings. Built using Vue as practice
+> Must have own Twitter API keys to make it work.
+> Also must run Chrome with no CORS for it to work since it is not a server side project.
 
 ## Build Setup
 
