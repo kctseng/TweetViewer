@@ -11,9 +11,14 @@
                 v-model="searchString"
             ></v-text-field>
         <v-spacer></v-spacer>
-        <v-btn v-on:click="startSearch()" fab>
+        <v-toolbar-items>
+        <v-btn small v-on:click="startSearch()" fab>
             <v-icon>fas fa-search</v-icon>
         </v-btn>
+        <v-btn small v-on:click="remove()" fab>
+            <v-icon>fas fa-times</v-icon>
+        </v-btn>
+        </v-toolbar-items>
         </v-toolbar>
 
         <v-list style="max-height:300px" class="scroll-y">
@@ -53,7 +58,7 @@ export default {
       var client = new Twitter({
           consumer_key : process.env.CONSUMER_KEY,
           consumer_secret : process.env.CONSUMER_SECRET_KEY,
-          bearer_token: process.env.BEARER_TOKEN
+          bearer_token: process.env.BEARER_TOKEN,
       });
       client.get('search/tweets', {q:self.searchString, count:20, result_type:"recent"}, function(error, tweets, response) {
           if (!error) {
@@ -65,7 +70,11 @@ export default {
               console.log(error);
           }
       });
+    },
+    remove : function() {
+      this.$emit('remove');
     }
+
   }
 };
 

@@ -2,13 +2,15 @@
   <div id="app">
     <v-content>
       <v-container grid-list-md fluid>
-      <v-layout row>
-        <v-flex v-for="i in numberOfTweetSearch" :key="`window${i}`" xs6>
+      <v-layout column>
+        <v-flex v-for="item in tweetSearchList" :key="`window${item.id}`" xs6>
           <v-card dark color="secondary">
-            <tweetSearch></tweetSearch>
+            <tweetSearch v-on:remove="removeThis(item)"></tweetSearch>
           </v-card>
         </v-flex>
       </v-layout>
+      <v-btn block v-on:click="addARow()"><v-icon>fas fa-plus</v-icon></v-btn>
+
       </v-container>
     </v-content>
   </div>
@@ -22,11 +24,23 @@ export default {
   name: "Home",
   data() {
     return {
-      numberOfTweetSearch : 2
+      tweetSearchList : [{id:1}, {id:2}],
+      nextWindowId : 3
     }
   },
   components : {
     'tweetSearch' : TweetSearch
+  },
+  methods: {
+    addARow : function(id) {
+      self = this;
+      self.tweetSearchList.push({id: self.nextWindowId});
+      self.nextWindowId++;
+    },
+    removeThis : function(item) {
+      self = this;
+      self.tweetSearchList.splice(self.tweetSearchList.indexOf(item), 1);
+    }
   }
 };
 </script>

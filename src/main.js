@@ -14,7 +14,10 @@ Vue.use(Vuetify, {
   iconfont : 'fa'
 })
 
+
 require('dotenv').config();
+console.log(require('dotenv').config())
+
 
 /* eslint-disable no-new */
 new Vue({
