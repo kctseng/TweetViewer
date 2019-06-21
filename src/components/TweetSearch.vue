@@ -8,6 +8,7 @@
                 label="Search"
                 clearable
                 v-model="searchString"
+                v-on:keyup.enter="startSearch()"
             ></v-text-field>
         <v-spacer></v-spacer>
         <v-toolbar-items>  
@@ -43,8 +44,11 @@
           <v-layout column>
           <v-flex v-for="tweet in tweetList" :key="`tweet${tweet.id}`">
             <v-card>
-                <v-card-title><h3>{{tweet.user.name}}</h3></v-card-title>
-                <v-card-text class="text-lg-left">{{tweet.text}}</v-card-text>
+                <v-card-text class="text-lg-left" wrap>
+                  <span><h3>{{tweet.user.name}}</h3></span><span class="grey--text">@{{tweet.user.screen_name}}</span><br>
+                  <span class="grey--text">{{tweet.created_at}}</span><br>
+                  <div>{{tweet.text}}</div>
+                </v-card-text>
             </v-card>
             <v-divider></v-divider>
           </v-flex>
