@@ -11,7 +11,13 @@ import 'vuetify/dist/vuetify.min.css'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify, {
-  iconfont : 'fa'
+  iconfont : 'fa',
+  theme: {
+    primary: '#9CEAEF',
+    secondary: '#68D8D6',
+    accent: '#8c9eff',
+    error: '#b71c1c'
+  }
 })
 
 

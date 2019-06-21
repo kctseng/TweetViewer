@@ -1,7 +1,7 @@
 <template>
   <v-footer
     height="auto"
-    color="black lighten-3"
+    color="primary"
     fixed
   >
     <v-layout
@@ -19,11 +19,9 @@
         {{ link }}
       </v-btn>
       <v-flex
-        black
         lighten-3
         py-3
         text-xs-center
-        white--text
         xs12
       >
         &copy;2018 — <strong>TweetViewer</strong>

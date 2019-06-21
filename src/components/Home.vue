@@ -3,13 +3,13 @@
     <v-content>
       <v-container grid-list-md fluid>
       <v-layout column>
-        <v-flex v-for="item in tweetSearchList" :key="`window${item.id}`" xs6>
-          <v-card dark color="secondary">
+        <v-flex v-for="item in tweetSearchList" :key="`window${item.id}`" xs6 style="margin-top:30px">
+          <v-card color="secondary">
             <tweetSearch v-on:remove="removeThis(item)"></tweetSearch>
           </v-card>
         </v-flex>
       </v-layout>
-      <v-btn block v-on:click="addARow()"><v-icon>fas fa-plus</v-icon></v-btn>
+      <v-btn block v-on:click="addARow()" style="margin-top:20px" color="primary"><v-icon>fas fa-plus</v-icon></v-btn>
 
       </v-container>
     </v-content>

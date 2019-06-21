@@ -1,8 +1,7 @@
 <template>
     <v-toolbar
       fixed
-      color="2B3249 lighten-3"
-      dark
+      color="primary"
     >
       <v-toolbar-title>{{title}}</v-toolbar-title>
 
