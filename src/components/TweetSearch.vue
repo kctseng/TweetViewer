@@ -40,7 +40,8 @@
         </v-btn>
         </v-toolbar-items>
         </v-toolbar>
-        <v-list v-if="tweetList.length" style="max-height:300px"  class="scroll-y">
+        <!--<pull-to :infinite-scroll="refreshSearch()" v-if="tweetList.length"> -->
+        <v-list  style="max-height:300px"  class="scroll-y">
           <v-layout column>
           <v-flex v-for="tweet in tweetList" :key="`tweet${tweet.id}`">
             <v-card>
@@ -54,12 +55,13 @@
           </v-flex>
           </v-layout>
         </v-list>
+        <!--</pull-to>-->
     </v-content>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import PullTo from 'vue-pull-to'
 
 export default {
   name: "TweetSearch",
@@ -70,8 +72,12 @@ export default {
         searchString : "",
         methodCalled : false,
         searchOptions : [ {text: "Recent", urlOption: "recent" } , {text: "Popular", urlOption:"popular" } ],
-        selectedOption : {text: "Recent", urlOption: "recent" }
+        selectedOption : {text: "Recent", urlOption: "recent" },
+        currentSearchCount :20
     }
+  },
+  components: {
+      PullTo
   },
   methods : {
     startSearch : function() {
@@ -83,7 +89,7 @@ export default {
           consumer_secret : process.env.CONSUMER_SECRET_KEY,
           bearer_token: process.env.BEARER_TOKEN,
       });
-      client.get('search/tweets', {q:self.searchString, count:20, result_type:self.selectedOption.urlOption}, function(error, tweets, response) {
+      client.get('search/tweets', {q:self.searchString, count:self.currentSearchCount, result_type:self.selectedOption.urlOption}, function(error, tweets, response) {
           if (!error) {
               console.log(tweets);
               self.tweetList = tweets.statuses; 
@@ -99,6 +105,10 @@ export default {
     },
     changeSearchOption : function(option) {
       this.selectedOption = option
+    },
+    refreshSearch() {
+      this.currentSearchCount += 20;
+      this.startSearch();
     }
 
   }
