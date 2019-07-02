@@ -40,28 +40,23 @@
         </v-btn>
         </v-toolbar-items>
         </v-toolbar>
-        <!--<pull-to :infinite-scroll="refreshSearch()" v-if="tweetList.length"> -->
+        <pull-to @infinite-scroll="refreshSearch()" v-if="tweetList.length"> 
         <v-list  style="max-height:300px"  class="scroll-y">
           <v-layout column>
           <v-flex v-for="tweet in tweetList" :key="`tweet${tweet.id}`">
-            <v-card>
-                <v-card-text class="text-lg-left" wrap>
-                  <span><h3>{{tweet.user.name}}</h3></span><span class="grey--text">@{{tweet.user.screen_name}}</span><br>
-                  <span class="grey--text">{{tweet.created_at}}</span><br>
-                  <div>{{tweet.text}}</div>
-                </v-card-text>
-            </v-card>
+            <tweet :information="tweet"></tweet>
             <v-divider></v-divider>
           </v-flex>
           </v-layout>
         </v-list>
-        <!--</pull-to>-->
+        </pull-to>
     </v-content>
   </div>
 </template>
 
 <script>
 import PullTo from 'vue-pull-to'
+import Tweet from './Tweet'
 
 export default {
   name: "TweetSearch",
@@ -77,7 +72,8 @@ export default {
     }
   },
   components: {
-      PullTo
+      'pullTo' : PullTo,
+      'tweet' : Tweet
   },
   methods : {
     startSearch : function() {
@@ -107,8 +103,11 @@ export default {
       this.selectedOption = option
     },
     refreshSearch() {
-      this.currentSearchCount += 20;
-      this.startSearch();
+      //this.currentSearchCount += 20;
+      //this.startSearch();
+      this.tweetList = this.tweetList.concat(this.tweetList);
+      console.log("refreshSearch()");
+      loaded('done');
     }
 
   }
