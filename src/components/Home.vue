@@ -3,14 +3,18 @@
     <v-content>
       <v-container grid-list-md fluid>
       <v-layout column>
+        <v-layout justify-start row>
+        <div v-for="word in history" :key="word">
+          <v-btn round color="secondary">{{word}}</v-btn>
+        </div>
+        </v-layout>
         <v-flex v-for="item in tweetSearchList" :key="`window${item.id}`" xs6 style="margin-top:30px">
           <v-card color="secondary">
-            <tweetSearch v-on:remove="removeThis(item)"></tweetSearch>
+            <tweetSearch v-on:remove="removeThis(item)" v-on:searched="addHistory($event)"></tweetSearch>
           </v-card>
         </v-flex>
       </v-layout>
       <v-btn block v-on:click="addARow()" style="margin-top:20px" color="primary"><v-icon>fas fa-plus</v-icon></v-btn>
-
       </v-container>
     </v-content>
   </div>
@@ -25,7 +29,8 @@ export default {
   data() {
     return {
       tweetSearchList : [{id:1}, {id:2}],
-      nextWindowId : 3
+      nextWindowId : 3,
+      history : []
     }
   },
   components : {
@@ -40,6 +45,12 @@ export default {
     removeThis : function(item) {
       self = this;
       self.tweetSearchList.splice(self.tweetSearchList.indexOf(item), 1);
+    },
+    addHistory : function(w) {
+      self = this;
+      if (!self.history.includes(w)) {
+        self.history.push(w);
+      }
     }
   }
 };

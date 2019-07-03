@@ -89,6 +89,7 @@ export default {
           if (!error) {
               console.log(tweets);
               self.tweetList = tweets.statuses; 
+              self.$emit('searched', self.searchString);
           }
           else {
               self.tweetList = [];
