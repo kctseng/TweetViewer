@@ -5,12 +5,12 @@
       <v-layout column>
         <v-layout justify-start row>
         <div v-for="word in history" :key="word">
-          <v-btn round color="secondary">{{word}}</v-btn>
+          <v-btn v-on:click="newSearchBar(word)" round color="secondary">{{word}}</v-btn>
         </div>
         </v-layout>
         <v-flex v-for="item in tweetSearchList" :key="`window${item.id}`" xs6 style="margin-top:30px">
           <v-card color="secondary">
-            <tweetSearch v-on:remove="removeThis(item)" v-on:searched="addHistory($event)"></tweetSearch>
+            <tweetSearch :defaultSearchQuery="item.searchString" v-on:remove="removeThis(item)" v-on:searched="addHistory($event)"></tweetSearch>
           </v-card>
         </v-flex>
       </v-layout>
@@ -28,7 +28,7 @@ export default {
   name: "Home",
   data() {
     return {
-      tweetSearchList : [{id:1}, {id:2}],
+      tweetSearchList : [{id:1, searchString:""}, {id:2, searchString:""}],
       nextWindowId : 3,
       history : []
     }
@@ -39,7 +39,7 @@ export default {
   methods: {
     addARow : function(id) {
       self = this;
-      self.tweetSearchList.push({id: self.nextWindowId});
+      self.tweetSearchList.push({id: self.nextWindowId, searchString:""});
       self.nextWindowId++;
     },
     removeThis : function(item) {
@@ -51,6 +51,11 @@ export default {
       if (!self.history.includes(w)) {
         self.history.push(w);
       }
+    },
+    newSearchBar : function(w) {
+      self = this;
+      self.tweetSearchList.push({id: self.nextWindowId, searchString:w});
+      self.nextWindowId++;
     }
   }
 };

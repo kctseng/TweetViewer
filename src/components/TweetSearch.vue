@@ -60,6 +60,7 @@ import Tweet from './Tweet'
 
 export default {
   name: "TweetSearch",
+  props: ['defaultSearchQuery'],
   data() {
     return {
         searchURL : "Search URL",
@@ -74,6 +75,13 @@ export default {
   components: {
       'pullTo' : PullTo,
       'tweet' : Tweet
+  },
+  created: function(){
+    var self = this;
+    if (self.defaultSearchQuery.length) {
+      self.searchString = self.defaultSearchQuery;
+      self.startSearch();
+    }
   },
   methods : {
     startSearch : function() {
